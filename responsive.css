@@ -1,6 +1,16 @@
-/* 响应式设计 - 不影响原始样式 */
-@media screen and (max-width: 768px) {
-    /* 平板电脑适配 */
+/* 全面响应式设计方案 */
+
+/* 基础响应式设置 */
+@media screen and (max-width: 1024px) {
+    .container {
+        width: 95%;
+        padding: 0 10px;
+    }
+}
+
+/* 平板电脑适配 (768px - 1023px) */
+@media screen and (max-width: 1023px) and (min-width: 769px) {
+    /* 布局调整 */
     .product-container {
         display: flex;
         flex-wrap: wrap;
@@ -12,60 +22,203 @@
         margin: 10px;
     }
     
+    /* 导航栏调整 */
     #navbar {
-        padding: 8px 15px;
+        padding: 10px 15px;
+    }
+    
+    /* 横幅和轮播图调整 */
+    .banner img, .carousel-item img {
+        height: auto;
     }
 }
 
-@media screen and (max-width: 480px) {
-    /* 手机适配 */
-    .product-card {
-        width: 90%;
-        margin: 10px auto;
+/* 手机适配 (768px以下) */
+@media screen and (max-width: 768px) {
+    /* 全局布局调整 */
+    body {
+        font-size: 16px;
     }
     
-    #navbar {
+    .container {
+        width: 100%;
+        padding: 0 10px;
+    }
+    
+    /* 导航栏完全重构 */
+    #navbar, #header, .navbar, nav {
         flex-direction: column;
-        padding: 10px;
+        align-items: center;
+        padding: 10px 0;
     }
     
-    #navbar ul {
+    #navbar ul, nav ul, .menu {
         flex-direction: column;
         width: 100%;
-        text-align: center;
         padding: 0;
+        margin: 10px 0;
     }
     
-    #navbar li {
+    #navbar li, nav li, .menu-item {
+        margin: 5px 0;
+        text-align: center;
+    }
+    
+    /* 隐藏大屏幕上的某些元素 */
+    .desktop-only {
+        display: none;
+    }
+    
+    /* 搜索框和用户界面 */
+    .search-box, #search-form, .search-bar {
+        width: 100%;
+        margin: 10px auto;
+        max-width: 100%;
+    }
+    
+    input[type="text"], input[type="search"] {
+        width: 100%;
+        box-sizing: border-box;
+        font-size: 16px; /* 防止iOS自动缩放 */
+    }
+    
+    /* 登录/注册按钮 */
+    #auth-buttons, .user-actions {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        margin: 10px 0;
+    }
+    
+    #login, #register, .login-btn, .register-btn {
+        margin: 0 5px;
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+    
+    /* Admin按钮重新定位 */
+    .admin-login-btn, .nav-icons, .admin-button {
+        margin: 10px auto;
+        text-align: center;
+    }
+    
+    /* 产品卡片样式 */
+    .product-container, .products-section {
+        padding: 10px 0;
+    }
+    
+    .product-card {
+        width: 90%;
+        margin: 15px auto;
+        max-width: 450px;
+    }
+    
+    .product-image img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+    
+    /* 购物车样式调整 */
+    .cart-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .cart-item-details {
+        width: 100%;
+        margin-top: 10px;
+    }
+    
+    .quantity-container {
+        margin: 10px 0;
+    }
+    
+    /* 按钮样式 */
+    .add-to-cart-btn, .confirm-button, .btn-primary, .custom-form button {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
         margin: 5px 0;
     }
     
-    #auth-buttons {
-        display: flex;
-        justify-content: center;
-        margin-top: 10px;
+    /* 图片横幅调整 */
+    .banner, .hero-image, .carousel {
+        height: auto;
+        max-height: 300px;
+    }
+    
+    .banner img, .hero-image img, .carousel-item img {
         width: 100%;
+        height: auto;
+        object-fit: cover;
     }
     
-    .search-box {
-        width: 90%;
-        margin: 10px auto;
+    /* 文本和标题调整 */
+    h1 {
+        font-size: 24px;
     }
     
-    .nav-icons {
-        justify-content: center;
-        margin-top: 10px;
+    h2 {
+        font-size: 22px;
+    }
+    
+    h3 {
+        font-size: 20px;
+    }
+    
+    h4 {
+        font-size: 18px;
+    }
+    
+    /* 表单元素 */
+    .form-group {
+        margin-bottom: 15px;
+    }
+    
+    /* 调整页脚 */
+    footer {
+        text-align: center;
+        padding: 20px 10px;
+    }
+    
+    /* 修复可能的溢出问题 */
+    img, video, iframe {
+        max-width: 100%;
+        height: auto;
+    }
+    
+    /* 调整价格和尺寸显示 */
+    .size-price {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .price, .size {
+        margin: 3px 0;
+    }
+}
+
+/* 小屏幕手机适配 (480px以下) */
+@media screen and (max-width: 480px) {
+    body {
+        font-size: 15px;
     }
     
     .logo img {
         max-height: 50px;
     }
     
-    .add-to-cart-btn {
-        width: 100%;
+    h1 {
+        font-size: 22px;
     }
     
-    .size-price {
-        flex-direction: column;
+    .product-card {
+        margin: 10px auto;
+    }
+    
+    /* 极小屏幕可能需要额外调整的元素 */
+    #navbar, header {
+        padding: 5px 0;
     }
 } 
