@@ -10,7 +10,6 @@
 - 🛒 **Shopping Cart System** – Add, remove, and adjust item quantities conveniently.  
 - 🚚 **Delivery Options** – Choose between **Line Man delivery service** or **in-store pickup**.  
 - 👤 **User Accounts** – Register and log in to track order history and manage purchases.  
-- ❤️ **Wishlist** – Save favorite items for future shopping.  
 - 📱 **Responsive Design** – Optimized for desktops, tablets, and mobile devices.  
 
 ## **Technical Implementation**  
@@ -25,12 +24,7 @@
 ## **Contact Information**  
 For inquiries, source code requests, or support, contact us at:  
 📧 **Email**: lhy3453069@gmail.com  
-📞 **Phone**: +02 393 3883  
-🏫 **Address**: 7 Sukhumvit 107, Khwaeng Bang Na, Khet Bang Na, Krung Thep Maha Nakhon 10260  
 
 ## **Copyright**  
 © **2024 St. Andrews International School**. All rights reserved.  
 
----
-
-This version improves **clarity, readability, and engagement** while keeping it **concise and professional**. Let me know if you need any modifications! 🚀
