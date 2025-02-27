@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - St. Andrews Online Uniform Store</title>
+    <link rel="stylesheet" href="interface.css">
+    <style>
+        .profile-container {
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #f7f7f7;
+            padding: 20px;
+            border-right: 1px solid #ddd;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            margin-bottom: 10px;
+        }
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            display: block;
+            padding: 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        .sidebar ul li a:hover {
+            background-color: #e0e0e0;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .error-message {
+            color: #d32f2f;
+            font-size: 12px;
+            margin-top: 4px;
+            min-height: 18px;
+        }
+        
+        .update-message {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+        
+        .update-message.success {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #a5d6a7;
+        }
+        
+        .update-message.error {
+            background-color: #ffebee;
+            color: #c62828;
+            border: 1px solid #ef9a9a;
+        }
+        
+        #update-button {
+            background-color: #1976d2;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        #update-button:disabled {
+            background-color: #b0bec5;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="sidebar">
+            <ul>
+                <li><a href="#" onclick="showSection('overview')">Overview</a></li>
+                <li><a href="#" onclick="showSection('orders')">My Orders</a></li>
+                <li><a href="#" onclick="showSection('favorites')">Favorites</a></li>
+                <li><a href="#" onclick="showSection('account')">Account Security</a></li>
+                <li><a href="index.html">Return to Home</a></li>
+                <li><a href="#" onclick="showSection('logout')">Logout</a></li>
+            </ul>
+        </div>
+        <div class="content" id="content">
+            <h1>Welcome to Your Profile</h1>
+            <p>Here you can view and edit your personal information.</p>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const userData = JSON.parse(localStorage.getItem('userData')) || {};
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            
+            if (!isLoggedIn) {
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            showSection('overview');
+        });
+
+        function showSection(section) {
+            const content = document.getElementById('content');
+            const userData = JSON.parse(localStorage.getItem('userData')) || {};
+            
+            switch (section) {
+                case 'overview':
+                    content.innerHTML = `
+                        <h1>Account Overview</h1>
+                        <div class="overview-container">
+                            <div class="user-info">
+                                <h2>Welcome back, ${userData.name || 'Student'}</h2>
+                                <p>${userData.email || ''}</p>
+                            </div>
+                            <div class="quick-links">
+                                <button onclick="showSection('orders')">View Orders</button>
+                                <button onclick="showSection('favorites')">Favorites</button>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'orders':
+                    // Get orders from localStorage
+                    const orders = JSON.parse(localStorage.getItem('orders')) || [];
+                    
+                    let ordersHTML = '';
+                    if (orders.length > 0) {
+                        orders.forEach(order => {
+                            ordersHTML += `
+                                <div class="order-item">
+                                    <div class="order-header">
+                                        <span>Order ID: ${order.id}</span>
+                                        <span>Date: ${order.date}</span>
+                                        <span>Status: ${order.status}</span>
+                                        <span>Total: ${order.total}</span>
+                                    </div>
+                                    <button onclick="viewOrderDetails('${order.id}')">View Details</button>
+                                </div>
+                            `;
+                        });
+                    } else {
+                        ordersHTML = '<p>You have no order history</p>';
+                    }
+                    
+                    content.innerHTML = `
+                        <h1>My Orders</h1>
+                        <div class="orders-container">
+                            ${ordersHTML}
+                        </div>
+                    `;
+                    break;
+                    
+                case 'favorites':
+                    // Get favorites from localStorage
+                    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+                    
+                    let favoritesHTML = '';
+                    if (favorites.length > 0) {
+                        favorites.forEach(item => {
+                            favoritesHTML += `
+                                <div class="product-card" data-id="${item.id}">
+                                    <h3>${item.name}</h3>
+                                    <p>${item.price}</p>
+                                    <button onclick="addToCart(${item.id})">Add to Cart</button>
+                                    <button onclick="removeFromFavorites(${item.id})">Remove</button>
+                                </div>
+                            `;
+                        });
+                    } else {
+                        favoritesHTML = '<p>Your favorites list is empty</p>';
+                    }
+                    
+                    content.innerHTML = `
+                        <h1>Favorites</h1>
+                        <div class="favorites-container">
+                            ${favoritesHTML}
+                        </div>
+                    `;
+                    break;
+                    
+                case 'account':
+                    content.innerHTML = `
+                        <h1>Account Security</h1>
+                        <div class="account-form">
+                            <div class="form-group">
+                                <label for="user-email">Email</label>
+                                <input type="email" id="user-email" value="${userData.email || ''}" required>
+                                <div class="error-message" id="email-error"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="current-password">Current Password</label>
+                                <input type="password" id="current-password" required>
+                                <div class="error-message" id="current-password-error"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="new-password">New Password</label>
+                                <input type="password" id="new-password">
+                                <div class="error-message" id="new-password-error"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="confirm-password">Confirm New Password</label>
+                                <input type="password" id="confirm-password">
+                                <div class="error-message" id="confirm-password-error"></div>
+                            </div>
+                            
+                            <button id="update-button" onclick="updateAccountInfo()">Update Information</button>
+                            <div id="update-message" class="update-message"></div>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'logout':
+                    localStorage.removeItem('isLoggedIn');
+                    window.location.href = 'index.html';
+                    break;
+                    
+                default:
+                    content.innerHTML = '<h1>Welcome to Your Profile</h1><p>Here you can view and edit your personal information.</p>';
+            }
+        }
+        
+        function updateAccountInfo() {
+            // 获取表单值
+            const email = document.getElementById('user-email').value.trim();
+            const currentPassword = document.getElementById('current-password').value;
+            const newPassword = document.getElementById('new-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            
+            // 清除错误消息
+            document.getElementById('email-error').textContent = '';
+            document.getElementById('current-password-error').textContent = '';
+            document.getElementById('new-password-error').textContent = '';
+            document.getElementById('confirm-password-error').textContent = '';
+            document.getElementById('update-message').textContent = '';
+            document.getElementById('update-message').className = 'update-message';
+            
+            // 验证
+            let hasError = false;
+            
+            if (!email) {
+                document.getElementById('email-error').textContent = 'Email is required';
+                hasError = true;
+            } else if (!/^\S+@\S+\.\S+$/.test(email)) {
+                document.getElementById('email-error').textContent = 'Please enter a valid email';
+                hasError = true;
+            }
+            
+            if (!currentPassword) {
+                document.getElementById('current-password-error').textContent = 'Current password is required';
+                hasError = true;
+            }
+            
+            if (newPassword && newPassword !== confirmPassword) {
+                document.getElementById('confirm-password-error').textContent = 'Passwords do not match';
+                hasError = true;
+            }
+            
+            if (hasError) return;
+            
+            // 显示加载状态
+            const updateButton = document.getElementById('update-button');
+            const originalButtonText = updateButton.textContent;
+            updateButton.textContent = 'Updating...';
+            updateButton.disabled = true;
+            
+            // 模拟数据库验证
+            setTimeout(function() {
+                // 硬编码验证用户数据库中的用户
+                // 这里使用您提供的用户数据
+                const validUsers = [
+                    { id: 15, username: "glhy", email: "l69@gmail.com" },
+                    { id: 16, username: "g123", email: "sd9@gmail.com" },
+                    { id: 17, username: "sss", email: "qcc@qq.com" },
+                    { id: 18, username: "georg", email: "3344@qq.com" },
+                    { id: 19, username: "lhy", email: "331@qq.com" }
+                ];
+                
+                // 从localStorage获取当前用户数据
+                const userData = JSON.parse(localStorage.getItem('userData')) || {};
+                const username = userData.username || '';
+                
+                // 验证用户是否在数据库中
+                let userFound = false;
+                let validUser = null;
+                
+                // 先尝试通过email找到用户
+                for (let user of validUsers) {
+                    if (email.toLowerCase() === user.email.toLowerCase()) {
+                        userFound = true;
+                        validUser = user;
+                        break;
+                    }
+                }
+                
+                // 如果没有找到用户，显示错误
+                if (!userFound) {
+                    document.getElementById('update-message').textContent = 'Email not found in database';
+                    document.getElementById('update-message').className = 'update-message error';
+                    updateButton.textContent = originalButtonText;
+                    updateButton.disabled = false;
+                    return;
+                }
+                
+                // 假设密码验证通过
+                // 在实际应用中这里应该进行密码哈希比对
+                
+                // 更新localStorage中的用户信息
+                userData.email = email;
+                userData.username = validUser.username; // 确保用户名与数据库匹配
+                localStorage.setItem('userData', JSON.stringify(userData));
+                
+                // 显示成功消息
+                document.getElementById('update-message').textContent = 'Account information updated successfully';
+                document.getElementById('update-message').className = 'update-message success';
+                
+                // 清除密码字段
+                document.getElementById('current-password').value = '';
+                document.getElementById('new-password').value = '';
+                document.getElementById('confirm-password').value = '';
+                
+                // 重置按钮
+                updateButton.textContent = originalButtonText;
+                updateButton.disabled = false;
+            }, 1000);
+        }
+    </script>
+</body>
+</html> 

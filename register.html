@@ -1,0 +1,33 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - St. Andrews Online Uniform Store</title>
+    <link rel="stylesheet" href="interface.css">
+    <!-- 添加防止自动填充的meta标签 -->
+    <meta name="format-detection" content="telephone=no">
+    <meta name="robots" content="noindex, nofollow">
+</head>
+<body>
+    <div class="auth-container">
+        <h2>Register</h2>
+        <form id="register-form" autocomplete="off">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <!-- 修改 id 和 name 以匹配后端期望的字段名 -->
+                <input type="text" id="username" name="username" autocomplete="off" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <!-- 修改 id 和 name 以匹配后端期望的字段名 -->
+                <input type="password" id="password" name="password" autocomplete="new-password" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" autocomplete="off" required>
+            </div>
+            <button type="submit" id="register-button">Register</button>
+        </form>
+        <p>Already have an account? <a href="login.html">Login</a></p>
+    </div>
+    <script src="main.js"></script>
+</body>

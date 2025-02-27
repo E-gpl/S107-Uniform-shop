@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation - St. Andrews Online Uniform Store</title>
+    <link rel="stylesheet" href="interface.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Order confirmation page specific styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+            padding-bottom: 50px;
+        }
+        
+        h2, h3, h4 {
+            font-weight: 600;
+            color: #1a73e8;
+        }
+        
+        .order-summary {
+            max-width: 800px;
+            margin: 70px auto 30px; /* Increased top margin */
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        
+        .order-header {
+            margin-bottom: 40px;
+            padding-top: 20px; /* Added top padding */
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .order-header h2 {
+            margin-bottom: 25px;
+        }
+        
+        .order-id, .order-date {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 15px;
+            padding: 8px 0; /* Increased padding */
+            display: block;
+            line-height: 1.5;
+        }
+        
+        .section-title {
+            font-size: 20px;
+            margin-bottom: 15px;
+            margin-top: 30px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #f0f0f0;
+            color: #1a73e8;
+        }
+        
+        .order-items, .delivery-summary, .price-summary, .payment-summary {
+            margin: 25px 0;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .order-item {
+            display: flex;
+            margin: 15px 0;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            transition: transform 0.2s;
+        }
+        
+        .order-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        
+        .item-image img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .item-details {
+            margin-left: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .item-details h4 {
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+        
+        .item-details p {
+            margin: 4px 0;
+            color: #555;
+        }
+        
+        .order-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        .order-success {
+            text-align: center;
+            padding: 60px 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin: 100px auto 30px; /* Increased top margin */
+            max-width: 600px;
+        }
+        
+        .success-icon {
+            font-size: 80px;
+            color: #4CAF50;
+            margin-bottom: 25px;
+        }
+        
+        .success-actions {
+            margin-top: 40px;
+        }
+        
+        .success-actions button {
+            margin: 0 10px;
+            padding: 12px 25px;
+            font-size: 16px;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 60px;
+            font-size: 18px;
+            color: #666;
+            margin-top: 70px; /* Added top margin */
+        }
+        
+        .btn-primary {
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary:hover {
+            background-color: #0d62d0;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(26, 115, 232, 0.3);
+        }
+        
+        .btn-outline {
+            background-color: white;
+            color: #1a73e8;
+            border: 1px solid #1a73e8;
+            padding: 12px 25px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        .btn-outline:hover {
+            background-color: #f0f7ff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(26, 115, 232, 0.1);
+        }
+        
+        .price {
+            font-weight: 600;
+            color: #1a73e8;
+        }
+        
+        .total-price {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1a73e8;
+        }
+        
+        /* Added extra space for header elements */
+        #header {
+            margin-bottom: 30px;
+        }
+        
+        /* Container with top padding */
+        .container {
+            padding-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <section id="header">
+        <a href="#" class="logo">
+            <img src="S107-Logo-1.webp" alt="Logo">
+        </a>
+        <div id="navbar">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#products">Products</a></li>
+                <li><a href="index.html#cart">Cart</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="container">
+        <div id="order-confirmation-container">
+            <!-- This will be populated with order confirmation content by JavaScript -->
+            <div class="loading">
+                <p><i class="fas fa-spinner fa-spin"></i> Loading order information...</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Direct order confirmation functionality in the page
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Order confirmation page loaded");
+            
+            // Get order data
+            const orderData = JSON.parse(localStorage.getItem('pendingOrder'));
+            console.log("Order data from localStorage:", orderData);
+            
+            if (!orderData) {
+                document.getElementById('order-confirmation-container').innerHTML = `
+                    <div class="order-summary">
+                        <h2>No order data found</h2>
+                        <p>Please return to the cart page and try checking out again.</p>
+                        <div class="order-actions">
+                            <button onclick="window.location.href='index.html#cart'" class="btn-primary">Return to Cart</button>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Generate order ID
+            const orderId = generateOrderId();
+            
+            // Format date correctly
+            const orderDate = new Date(orderData.date || new Date()).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            
+            // Calculate total price
+            const totalPrice = orderData.items.reduce((total, item) => {
+                return total + parseFloat(item.price.toString().replace('฿', ''));
+            }, 0).toFixed(2);
+            
+            // Build HTML
+            let html = `
+                <div class="order-summary">
+                    <div class="order-header">
+                        <h2>Order Confirmation</h2>
+                        <span class="order-id">Order ID: ${orderId}</span>
+                        <span class="order-date">Date: ${orderDate}</span>
+                    </div>
+                    
+                    <h3 class="section-title">Items</h3>
+                    <div class="order-items">
+            `;
+            
+            // Add order items
+            if (orderData.items && orderData.items.length) {
+                orderData.items.forEach(item => {
+                    // Remove currency symbol from price if it already has one
+                    const price = item.price.toString().replace('฿', '');
+                    
+                    html += `
+                        <div class="order-item">
+                            <div class="item-image">
+                                <img src="${item.image}" alt="${item.title}">
+                            </div>
+                            <div class="item-details">
+                                <h4>${item.title}</h4>
+                                <p>Size: ${item.size}</p>
+                                <p>Quantity: ${item.quantity}</p>
+                                <p>Price: <span class="price">฿${price}</span></p>
+                            </div>
+                        </div>
+                    `;
+                });
+            } else {
+                html += `<p>No items</p>`;
+            }
+            
+            // Add delivery information
+            html += `
+                </div>
+                
+                <h3 class="section-title">Delivery Information</h3>
+                <div class="delivery-summary">
+                    <p>Delivery Method: ${orderData.delivery.method === 'line-man' ? 'Home Delivery' : 'Self Pickup'}</p>
+            `;
+            
+            if (orderData.delivery.method === 'line-man') {
+                // Remove currency symbol from fee if it already has one
+                const deliveryFee = orderData.delivery.fee.toString().replace('฿', '');
+                
+                html += `
+                    <p>District: ${orderData.delivery.district}</p>
+                    <p>Address: ${orderData.delivery.address}</p>
+                    <p>Delivery Fee: <span class="price">฿${deliveryFee}</span></p>
+                `;
+            }
+            
+            // Add total price and confirm button
+            html += `
+                </div>
+                
+                <h3 class="section-title">Price Summary</h3>
+                <div class="price-summary">
+                    <p>Total (including delivery): <span class="total-price">฿${totalPrice}</span></p>
+                </div>
+                
+                <h3 class="section-title">Payment Method</h3>
+                <div class="payment-summary">
+                    <p>Selected payment method: ${localStorage.getItem('paymentMethod') || 'Offline Payment'}</p>
+                </div>
+                
+                <div class="order-actions">
+                    <button id="confirm-order" class="btn-primary">Confirm Order</button>
+                    <button id="back-to-cart" class="btn-outline">Return to Cart</button>
+                </div>
+            </div>
+            `;
+            
+            // Update page content
+            document.getElementById('order-confirmation-container').innerHTML = html;
+            
+            // Add button events
+            document.getElementById('confirm-order').addEventListener('click', completeOrder);
+            document.getElementById('back-to-cart').addEventListener('click', function() {
+                // Navigate to the cart section without refreshing
+                window.location.href = 'index.html#cart';
+            });
+        });
+        
+        // Generate order ID
+        function generateOrderId() {
+            const timestamp = new Date().getTime();
+            const random = Math.floor(Math.random() * 10000);
+            return `ORD-${timestamp}-${random}`;
+        }
+        
+        // Complete order
+        function completeOrder() {
+            // Get order data from local storage
+            const orderData = JSON.parse(localStorage.getItem('pendingOrder'));
+            if (!orderData) return;
+            
+            // Generate order ID
+            const orderId = generateOrderId();
+            
+            // Create order object
+            const order = {
+                id: orderId,
+                ...orderData,
+                status: 'Confirmed',
+                paymentStatus: 'Completed',
+                createdAt: new Date().toISOString()
+            };
+            
+            // Save to order history
+            let orderHistory = JSON.parse(localStorage.getItem('orderHistory') || '[]');
+            orderHistory.push(order);
+            localStorage.setItem('orderHistory', JSON.stringify(orderHistory));
+            
+            // Clear cart
+            localStorage.removeItem('cartItems');
+            
+            // Clear pending order
+            localStorage.removeItem('pendingOrder');
+            
+            // Show success page
+            showOrderSuccess(orderId);
+        }
+        
+        // Show order success page
+        function showOrderSuccess(orderId) {
+            const container = document.getElementById('order-confirmation-container');
+            
+            const html = `
+                <div class="order-success">
+                    <div class="success-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h2>Order Successfully Submitted!</h2>
+                    <p>Your Order ID: <strong>${orderId}</strong></p>
+                    <p>We have sent an order confirmation to your email.</p>
+                    <p>Thank you for your purchase!</p>
+                    <div class="success-actions">
+                        <button onclick="window.location.href='index.html'" class="btn-primary">Continue Shopping</button>
+                        <button onclick="window.location.href='order-history.html'" class="btn-outline">View My Orders</button>
+                    </div>
+                </div>
+            `;
+            
+            container.innerHTML = html;
+        }
+
+        function addToCart(item) {
+            let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            cartItems.push(item);
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            const cartContainer = document.getElementById('cart-container');
+
+            cartContainer.innerHTML = ''; // 清空容器
+
+            cartItems.forEach(item => {
+                const cartItemTemplate = document.getElementById('cart-item-template').content.cloneNode(true);
+                cartItemTemplate.querySelector('.cart-item-image').src = item.image;
+                cartItemTemplate.querySelector('.cart-item-title').textContent = item.title;
+                cartItemTemplate.querySelector('.cart-item-size').textContent = `Size: ${item.size}`;
+                cartItemTemplate.querySelector('.quantity-value').textContent = item.quantity;
+                cartItemTemplate.querySelector('.cart-item-price').textContent = `฿${item.price}`;
+
+                cartContainer.appendChild(cartItemTemplate);
+            });
+        });
+    </script>
+    <script src="main.js"></script>
+</body>
+</html> 

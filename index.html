@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>St. Andrews Online Uniform Store</title>
+   <link rel="stylesheet" href="interface.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>    <section id="header">
+       <a href="#" class="logo">
+           <img src="S107-Logo-1.webp" alt="Logo">
+       </a>
+       <div id="navbar">
+           <ul>
+               <li><a href="#home">Home</a></li>
+               <li><a href="#products">Products</a></li>
+               <li><a href="#cart">Cart</a></li>
+               <li><a href="#contact">Contact</a></li>
+               <li id="auth-buttons">
+                   <a href="login.html"><button id="login-button">Login</button></a>
+                   <a href="register.html"><button id="register-button">Register</button></a>
+               </li>
+           </ul>
+       </div>
+
+       <div class="nav-icons">
+           <button class="admin-login-btn" onclick="window.location.href='admin-login.html'">
+               <i class="fas fa-user-shield"></i>
+               Admin
+           </button>
+
+           <div class="search-box">
+               <input type="text" id="navbar-search-input" placeholder="Search products...">
+               <button type="submit"><i class="fas fa-search"></i></button>
+           </div>
+           <a href="#cart"><i class="fas fa-shopping-cart"></i></a>
+           <div class="user-profile">
+               <button class="profile-btn"><i class="fas fa-user"></i></button>
+               <div class="dropdown-menu">
+                   <div class="dropdown-header">
+                       <i class="fas fa-user-circle"></i>
+                       <span>Hello, User!</span> 
+                   </div>
+                   <div class="dropdown-divider"></div>
+                   <a href="#orders"><i class="fas fa-shopping-bag"></i> My Orders</a>
+                   <a href="#wishlist"><i class="fas fa-heart"></i> Wishlist</a>
+                   <a href="#address"><i class="fas fa-map-marker-alt"></i> Shipping Address</a>
+                   <a href="#payment"><i class="fas fa-credit-card"></i> Payment Methods</a>
+                   <div class="dropdown-divider"></div>
+                   <a href="#logout" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+               </div>
+           </div>
+       </div>
+   </section>
+
+
+   <section id="title" class="title-section">
+       <div class="title-content" style="background: rgba(255, 255, 255, 0.9); padding: 40px; border-radius: 15px; max-width: 600px;">
+           <h4 style="font-size: 28px; color: #333; margin-bottom: 10px;">NEW ARRIVALS</h4>
+           <h1 style="font-size: 56px; font-weight: bold; color: #1a73e8; margin-bottom: 20px;">Best Price This Year</h1>
+           <p style="font-size: 20px; color: #555; margin-bottom: 30px;">Shoomatic offers you a very comfortable time on walking and exercises.</p>
+           <button id="shop-now" onclick="scrollToProducts()" style="background-color: #1a73e8; color: white; padding: 15px 30px; border: none; border-radius: 10px; font-size: 20px; cursor: pointer; transition: background-color 0.3s;">SHOP NOW</button>
+       </div>
+   </section>
+
+
+   <!-- 移除多余的闭合标签 -->
+   <section id="brand-icons">
+       <a href="#" onclick="scrollToSearch()"><i class="fas fa-search" style="font-size: 24px;"></i></a>
+       <a href="#cart"><i class="fas fa-shopping-cart" style="font-size: 24px;"></i></a>
+       <a href="#user"><i class="fas fa-user" style="font-size: 24px;"></i></a>
+       <a href="#wishlist"><i class="fas fa-heart" style="font-size: 24px;"></i></a>
+       <a href="#orders"><i class="fas fa-box" style="font-size: 24px;"></i></a>
+   </section>
+ 
+
+
+       <!-- 在 brand-icons section 后添加 -->
+       <section id="products" class="products-section">
+        
+        <section class="size-calculator">
+            <h3>Size Calculator</h3>
+            <div class="form-container">
+                <form class="custom-form" id="size-form">
+                    <div class="form-group">
+                        <label for="height">Height (cm):</label>
+                        <input type="number" id="height" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="chest">Chest (cm):</label>
+                        <input type="number" id="chest" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="waist">Waist (cm):</label>
+                        <input type="number" id="waist" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="hip">Hip (cm):</label>
+                        <input type="number" id="hip" required>
+                    </div>
+                    <button type="submit">Calculate Size</button>
+                </form>
+            </div>
+        </section>
+           <h2>Products</h2>
+           <div class="product-grid">
+               <!-- Row 1 -->
+               <div class="product-card">
+                   <div class="product-image">
+                       <img src="B-Shirt.jpg" alt="Boy Shirt">
+                   </div>
+                   <div class="product-details">
+                       <h4>Boy Shirt</h4>
+                       <div class="size-price">
+                           <span class="size">Size: XS - 3XL</span>
+                           <span class="price">฿350.00-฿400.00</span>
+                       </div>
+                       <button class="add-to-cart-btn">Add to Cart</button>
+                   </div>
+               </div>
+  
+               <div class="product-card">
+                   <div class="product-image">
+                       <img src="B-shorts.jpg" alt="Boy sports">
+                   </div>
+                   <div class="product-details">
+                       <h4>Boy sports</h4>
+                       <div class="size-price">
+                           <span class="size">Size: 2XS - 2XL</span>
+                           <span class="price">฿320.00-฿450.00</span>
+                       </div>
+                       <button class="add-to-cart-btn">Add to Cart</button>
+                   </div>
+               </div>
+  
+  
+               <div class="product-card">
+                   <div class="product-image">
+                       <img src="G-Blouse-.jpg" alt="Girl Blouse">
+                   </div>
+                   <div class="product-details">
+                       <h4>Girl Blouse</h4>
+                       <div class="size-price">
+                           <span class="size">Size: XS - 3XL</span>
+                           <span class="price">฿350.00-฿420.00</span>
+                       </div>
+                       <button class="add-to-cart-btn">Add to Cart</button>
+                   </div>
+               </div>
+  
+               <!-- Row 2 -->
+               <div class="product-card">
+                   <div class="product-image">
+                       <img src="GDress-.jpg" alt="Gril Dress">
+                   </div>
+                   <div class="product-details">
+                       <h4>Gril Dress</h4>
+                       <div class="size-price">
+                           <span class="size">Size: XS - L</span>
+                           <span class="price">฿400.00-฿420.00</span>
+                       </div>
+                       <button class="add-to-cart-btn">Add to Cart</button>
+                   </div>
+               </div>
+  
+  
+               <div class="product-card">
+                   <div class="product-image">
+                       <img src="IMG20190319101001.jpg" alt="Secondary Polo shirt">
+                   </div>
+                   <div class="product-details">
+                       <h4>Secondary Polo shirt</h4>
+                       <div class="size-price">
+                           <span class="size">Size: S - 3XL</span>
+                           <span class="price">฿450.00</span>
+                       </div>
+                       <button class="add-to-cart-btn">Add to Cart</button>
+                   </div>
+               </div>
+  
+              
+               <!-- Row 3 -->
+               <div class="product-card">
+                   <div class="product-image">
+                       <img src="IMG20230720144514.jpg" alt="Uniform 9">
+                   </div>
+                   <div class="product-details">
+                       <h4>Girl Culotte</h4>
+                       <div class="size-price">
+                           <span class="size">Size: S - XXL</span>
+                           <span class="price">฿380.00-฿500.00</span>
+                       </div>
+                       <button class="add-to-cart-btn">Add to Cart</button>
+                   </div>
+               </div>
+  
+               <div class="product-card">
+                   <div class="product-image">
+                       <img src="Shorts copy.jpg" alt="Uniform 10">
+                   </div>
+                   <div class="product-details">
+                       <h4>PE shorts</h4>
+                       <div class="size-price">
+                           <span class="size">Size: XS - 3XL</span>
+                           <span class="price">฿380.00</span>
+                       </div>
+                       <button class="add-to-cart-btn">Add to Cart</button>
+                   </div>
+               </div>
+  
+               <div class="product-card">
+                   <div class="product-image">
+                       <img src="PE shirt copy.jpg" alt="Uniform 11">
+                   </div>
+                   <div class="product-details">
+                       <h4>PE shirt</h4>
+                       <div class="size-price">
+                           <span class="size">Size: S - 3XL</span>
+                           <span class="price">฿380.00</span>
+                       </div>
+                       <button class="add-to-cart-btn">Add to Cart</button>
+                   </div>
+               </div>
+  
+               <div class="product-card">
+                   <div class="product-image">
+                       <img src="Year 12-13 Polo shirt.jpg" alt="Uniform 12">
+                   </div>
+                   <div class="product-details">
+                       <h4>IB polo shirt</h4>
+                       <div class="size-price">
+                           <span class="size">Size: S - 3XL</span>
+                           <span class="price">฿450.00</span>
+                       </div>
+                       <button class="add-to-cart-btn">Add to Cart</button>
+                   </div>
+               </div>
+           </div>
+       </section>
+
+
+   <section id="cart">
+       <h2>Shopping Cart</h2>
+       <div id="cart-container">
+           <template id="cart-item-template">
+               <div class="cart-item">
+                   <img src="" alt="" class="cart-item-image" onerror="this.src='placeholder.jpg'">
+                   <div class="cart-item-details">
+                       <div class="cart-item-title"></div>
+                       <div class="cart-item-size"></div>
+                       <div class="cart-item-quantity">
+                           <button class="quantity-decrease">-</button>
+                           <span class="quantity-value"></span>
+                           <button class="quantity-increase">+</button>
+                       </div>
+                       <div class="cart-item-price"></div>
+                   </div>
+                   <button class="remove-item">
+                       <i class="fas fa-trash"></i>
+                   </button>
+               </div>
+           </template>
+       </div>
+   
+       <!-- 配送选择部分 -->
+       <div class="delivery-section">
+           <h3>Delivery Options</h3>
+           <div class="delivery-options">
+               <div class="delivery-option">
+                   <input type="radio" id="line-man" name="delivery" value="line-man">
+                   <label for="line-man">Line Man Delivery</label>
+               </div>
+               <div class="delivery-option">
+                   <input type="radio" id="self-pickup" name="delivery" value="self-pickup">
+                   <label for="self-pickup">Self Pickup at Store</label>
+               </div>
+           </div>
+   
+           <!-- 配送地址表单 -->
+           <div id="delivery-address-form" style="display: none;">
+               <div class="form-group">
+                   <label for="district">District:</label>
+                   <select id="district" onchange="calculateDeliveryFee()">
+                       <option value="">Select District</option>
+                       <option value="bangna">Bang Na</option>
+                       <option value="prawet">Prawet</option>
+                       <option value="ladkrabang">Lat Krabang</option>
+                   </select>
+               </div>
+               <div class="form-group">
+                   <label for="address">Detailed Address:</label>
+                   <textarea id="address" rows="3" required></textarea>
+               </div>
+           </div>
+   
+           <!-- 配送费用显示 -->
+           <div id="delivery-fee-display" style="display: none;">
+               <div class="fee-summary">
+                   <p>Delivery Fee: ฿<span id="delivery-fee">0</span></p>
+                   <p>Total with Delivery: ฿<span id="total-with-delivery">0.00</span></p>
+               </div>
+           </div>
+       </div>
+
+       <button id="checkout-button" onclick="checkout()">Checkout</button>
+   </section>
+   </section>
+
+
+   <section id="contact">
+       <h2>Contact Us</h2>
+       <p>Email: sukhumvit@standrews-schools.com</p>
+       <p>Phone: +02 393 3883</p>
+       <p>Address: 7 Sukhumvit 107, Khwaeng Bang Na, Khet Bang Na, Krung Thep Maha Nakhon 10260</p>
+   </section>
+
+
+   <button id="scroll-to-top" style="display: none;">Scroll to Top</button>
+   <!-- 在body结束标签前确保有这行 -->
+   <script>
+       document.addEventListener('DOMContentLoaded', function() {
+           const profileBtn = document.querySelector('.profile-btn');
+           const dropdownMenu = document.querySelector('.dropdown-menu');
+
+
+           if (profileBtn && dropdownMenu) {
+               profileBtn.addEventListener('click', function(e) {
+                   e.preventDefault();
+                   e.stopPropagation();
+                   dropdownMenu.classList.toggle('show-dropdown');
+               });
+
+
+               document.addEventListener('click', function(e) {
+                   if (!dropdownMenu.contains(e.target) && !profileBtn.contains(e.target)) {
+                       dropdownMenu.classList.remove('show-dropdown');
+                   }
+               });
+           }
+
+           // Load cart items from localStorage
+           const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+           const cartContainer = document.getElementById('cart-container');
+
+           cartItems.forEach(item => {
+               const cartItemTemplate = document.getElementById('cart-item-template').content.cloneNode(true);
+               cartItemTemplate.querySelector('.cart-item-image').src = item.image;
+               cartItemTemplate.querySelector('.cart-item-title').textContent = item.title;
+               cartItemTemplate.querySelector('.cart-item-size').textContent = `Size: ${item.size}`;
+               cartItemTemplate.querySelector('.quantity-value').textContent = item.quantity;
+               cartItemTemplate.querySelector('.cart-item-price').textContent = `฿${item.price}`;
+
+               cartContainer.appendChild(cartItemTemplate);
+           });
+       });
+   </script>
+   <!-- 保留这个模态框，确保语言为英文 -->
+       <div id="size-modal" class="modal">
+           <div class="modal-content">
+               <span class="close-modal">&times;</span>
+               <h3 id="modal-product-name"></h3>
+               <div class="size-options"></div>
+               <div class="quantity-selector">
+                   <label for="quantity">Quantity:</label>
+                   <input type="number" id="quantity" min="1" value="1">
+               </div>
+               <div class="modal-price"></div>
+               <button id="confirm-add-to-cart">Add to Cart</button>
+           </div>
+       </div>
+       <script src="main.js"></script>
+   </body>
+   </html>
