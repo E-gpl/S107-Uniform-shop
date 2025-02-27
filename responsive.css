@@ -1,0 +1,71 @@
+/* 响应式设计 - 不影响原始样式 */
+@media screen and (max-width: 768px) {
+    /* 平板电脑适配 */
+    .product-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .product-card {
+        width: 45%;
+        margin: 10px;
+    }
+    
+    #navbar {
+        padding: 8px 15px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    /* 手机适配 */
+    .product-card {
+        width: 90%;
+        margin: 10px auto;
+    }
+    
+    #navbar {
+        flex-direction: column;
+        padding: 10px;
+    }
+    
+    #navbar ul {
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+        padding: 0;
+    }
+    
+    #navbar li {
+        margin: 5px 0;
+    }
+    
+    #auth-buttons {
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+        width: 100%;
+    }
+    
+    .search-box {
+        width: 90%;
+        margin: 10px auto;
+    }
+    
+    .nav-icons {
+        justify-content: center;
+        margin-top: 10px;
+    }
+    
+    .logo img {
+        max-height: 50px;
+    }
+    
+    .add-to-cart-btn {
+        width: 100%;
+    }
+    
+    .size-price {
+        flex-direction: column;
+    }
+} 
