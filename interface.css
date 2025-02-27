@@ -1582,3 +1582,16 @@ h2, h3, h4 {
     color: #666;
     line-height: 1.6;
 }
+
+#auth-buttons a {
+    margin-right: 15px; /* 为每个按钮链接添加右侧间距 */
+}
+
+#auth-buttons a:last-child {
+    margin-right: 0; /* 最后一个按钮不需要右侧间距 */
+}
+
+/* 或者直接针对按钮设置样式 */
+#login-button {
+    margin-right: 15px; /* 专门为登录按钮添加右侧间距 */
+}
